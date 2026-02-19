@@ -3,8 +3,8 @@ name: dbt Production
 on:
   push:
     branches: [main]
-  schedule:
-    - cron: '0 6 * * *'  # daily at 06:00 UTC
+  # schedule:
+  #   - cron: '0 6 * * *'  # daily at 06:00 UTC (disabled for demo)
 
 env:
   DBT_PROFILES_DIR: .
