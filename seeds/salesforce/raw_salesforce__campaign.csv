@@ -1,0 +1,4 @@
+Id,Name,Type,Status,StartDate,EndDate,IsActive,BudgetedCost,ActualCost,CreatedDate,SystemModstamp,IsDeleted
+CAMP001,Q1 2026 Product Webinar,Webinar,Active,2025-11-01,2025-11-30,true,5000.00,3500.00,2025-10-01T10:00:00,2025-11-15T09:00:00,false
+CAMP002,January Newsletter,Email,Completed,2025-12-01,2025-12-31,false,1000.00,800.00,2025-11-15T10:00:00,2026-01-02T09:00:00,false
+CAMP003,Sales Outreach Q1,Email,Active,2025-10-15,2026-01-31,true,2000.00,1200.00,2025-10-10T10:00:00,2025-12-20T09:00:00,false

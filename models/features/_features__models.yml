@@ -1,0 +1,60 @@
+version: 2
+
+models:
+  - name: feat_person_scoring
+    description: Point-in-time correct person-level features for lead scoring ML. Grain is person x as_of_date. All features use strictly backward-looking windows.
+    config:
+      contract:
+        enforced: true
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+            - person_id
+            - as_of_date
+    columns:
+      - name: person_id
+        data_type: text
+        tests:
+          - not_null
+      - name: as_of_date
+        data_type: date
+        tests:
+          - not_null
+      - name: person_status
+        data_type: text
+      - name: lead_source
+        data_type: text
+      - name: days_since_first_touch
+        data_type: number
+      - name: days_since_last_touch
+        data_type: number
+      - name: touchpoint_count_7d
+        data_type: number
+      - name: touchpoint_count_30d
+        data_type: number
+      - name: touchpoint_count_all
+        data_type: number
+        description: All-time touchpoint count as of this date. Must be > 0.
+        tests:
+          - not_null
+      - name: distinct_channel_count_30d
+        data_type: number
+      - name: page_view_count_7d
+        data_type: number
+      - name: page_view_count_30d
+        data_type: number
+      - name: form_submit_count_all
+        data_type: number
+      - name: content_download_count_all
+        data_type: number
+      - name: has_demo_request
+        data_type: boolean
+      - name: session_count_30d
+        data_type: number
+      - name: inserted_at
+        data_type: timestamp_ntz
+        description: Timestamp when this row was first inserted by dbt.
+      - name: updated_at
+        data_type: timestamp_ntz
+        description: Timestamp when this row was last refreshed by dbt.

@@ -1,0 +1,334 @@
+version: 2
+
+models:
+  - name: unf_account
+    description: Unified account entity from Salesforce.
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: account_key
+        data_type: text
+        tests:
+          - unique
+          - not_null
+      - name: account_id
+        data_type: text
+        tests:
+          - unique
+          - not_null
+      - name: account_name
+        data_type: text
+      - name: industry
+        data_type: text
+      - name: employee_count
+        data_type: number
+      - name: annual_revenue_amount
+        data_type: number
+      - name: account_type
+        data_type: text
+      - name: source_system
+        data_type: text
+      - name: loaded_at
+        data_type: timestamp_ntz
+        description: Timestamp when dbt materialized this row.
+
+  - name: unf_person
+    description: Unified person entity merging leads and contacts. SCD2 structure with valid_from/valid_to.
+    config:
+      contract:
+        enforced: true
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - person_id
+              - valid_from
+    columns:
+      - name: person_key
+        data_type: text
+        tests:
+          - unique
+          - not_null
+      - name: person_id
+        data_type: text
+        tests:
+          - not_null
+      - name: account_id
+        data_type: text
+        tests:
+          - relationships:
+              arguments:
+                to: ref('unf_account')
+                field: account_id
+              config:
+                where: "account_id is not null"
+      - name: email
+        data_type: text
+      - name: first_name
+        data_type: text
+      - name: last_name
+        data_type: text
+      - name: title
+        data_type: text
+      - name: person_status
+        data_type: text
+      - name: lead_source
+        data_type: text
+      - name: is_converted
+        data_type: boolean
+      - name: converted_at
+        data_type: date
+      - name: source_system
+        data_type: text
+      - name: valid_from
+        data_type: timestamp_ntz
+      - name: valid_to
+        data_type: timestamp_ntz
+      - name: is_current
+        data_type: boolean
+      - name: loaded_at
+        data_type: timestamp_ntz
+        description: Timestamp when dbt materialized this row.
+
+  - name: unf_opportunity
+    description: Unified opportunity entity from Salesforce.
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: opportunity_key
+        data_type: text
+        tests:
+          - unique
+          - not_null
+      - name: opportunity_id
+        data_type: text
+        tests:
+          - unique
+          - not_null
+      - name: account_id
+        data_type: text
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('unf_account')
+                field: account_id
+      - name: opportunity_name
+        data_type: text
+      - name: opportunity_stage
+        data_type: text
+      - name: deal_amount
+        data_type: number
+      - name: close_date
+        data_type: date
+      - name: probability
+        data_type: number
+      - name: is_closed
+        data_type: boolean
+      - name: is_won
+        data_type: boolean
+      - name: lead_source
+        data_type: text
+      - name: created_at
+        data_type: timestamp_ntz
+      - name: source_system
+        data_type: text
+      - name: loaded_at
+        data_type: timestamp_ntz
+        description: Timestamp when dbt materialized this row.
+
+  - name: unf_campaign
+    description: Unified campaigns from CRM and ad platforms.
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: campaign_key
+        data_type: text
+        tests:
+          - unique
+          - not_null
+      - name: campaign_id
+        data_type: text
+        tests:
+          - not_null
+      - name: campaign_name
+        data_type: text
+      - name: campaign_type
+        data_type: text
+      - name: platform
+        data_type: text
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['salesforce', 'google_ads']
+      - name: objective
+        data_type: text
+      - name: campaign_status
+        data_type: text
+      - name: start_date
+        data_type: date
+      - name: end_date
+        data_type: date
+      - name: budget_amount
+        data_type: number
+      - name: loaded_at
+        data_type: timestamp_ntz
+        description: Timestamp when dbt materialized this row.
+
+  - name: unf_channel
+    description: Marketing channels derived from UTM source/medium patterns.
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: channel_key
+        data_type: text
+        tests:
+          - unique
+          - not_null
+      - name: channel_id
+        data_type: text
+        tests:
+          - unique
+          - not_null
+      - name: channel_name
+        data_type: text
+        tests:
+          - not_null
+      - name: utm_source
+        data_type: text
+      - name: utm_medium
+        data_type: text
+      - name: channel_group
+        data_type: text
+      - name: loaded_at
+        data_type: timestamp_ntz
+        description: Timestamp when dbt materialized this row.
+
+  - name: unf_touchpoint
+    description: Unified touchpoints from GA4 and CRM campaign membership. Core attribution entity.
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: touchpoint_key
+        data_type: text
+        tests:
+          - unique
+          - not_null
+      - name: person_id
+        data_type: text
+        tests:
+          - not_null
+      - name: campaign_key
+        data_type: text
+      - name: channel_id
+        data_type: text
+      - name: account_id
+        data_type: text
+      - name: touchpoint_at
+        data_type: timestamp_ntz
+        tests:
+          - not_null
+      - name: touchpoint_type
+        data_type: text
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['page_view', 'form_submit', 'demo_request', 'content_download', 'event_attended', 'email_responded', 'campaign_response']
+              config:
+                severity: warn
+      - name: touchpoint_source
+        data_type: text
+      - name: is_conversion
+        data_type: boolean
+      - name: session_id
+        data_type: text
+      - name: page_url
+        data_type: text
+      - name: touchpoint_sequence
+        data_type: number
+      - name: days_since_previous_touchpoint
+        data_type: number
+      - name: loaded_at
+        data_type: timestamp_ntz
+        description: Timestamp when dbt materialized this row.
+
+  - name: unf_stage_transition
+    description: Lifecycle stage transitions derived from lead conversion events.
+    config:
+      contract:
+        enforced: true
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - person_id
+              - from_stage
+              - to_stage
+              - transitioned_at
+    columns:
+      - name: transition_key
+        data_type: text
+        tests:
+          - unique
+          - not_null
+      - name: person_id
+        data_type: text
+        tests:
+          - not_null
+      - name: from_stage
+        data_type: text
+      - name: to_stage
+        data_type: text
+      - name: transitioned_at
+        data_type: timestamp_ntz
+      - name: loaded_at
+        data_type: timestamp_ntz
+        description: Timestamp when dbt materialized this row.
+
+  - name: unf_daily_ad_spend
+    description: Daily ad spend aggregated from all platforms. Normalized to USD.
+    config:
+      contract:
+        enforced: true
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - campaign_key
+              - spend_date
+    columns:
+      - name: campaign_key
+        data_type: text
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('unf_campaign')
+                field: campaign_key
+              config:
+                severity: warn
+      - name: platform
+        data_type: text
+      - name: spend_date
+        data_type: date
+        tests:
+          - not_null
+      - name: impressions_count
+        data_type: number
+      - name: clicks_count
+        data_type: number
+      - name: spend_amount
+        data_type: number
+      - name: conversions_count
+        data_type: number
+      - name: conversions_value_amount
+        data_type: number
+      - name: loaded_at
+        data_type: timestamp_ntz
+        description: Timestamp when dbt materialized this row.

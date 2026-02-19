@@ -1,0 +1,8 @@
+Id,AccountId,FirstName,LastName,Email,Title,Phone,LeadSource,OwnerId,CreatedDate,LastModifiedDate,SystemModstamp,IsDeleted
+CON001,ACC001,Jane,Doe,jane.doe@acme.com,VP Marketing,555-0101,Paid Search,USR001,2025-11-08T09:00:00,2025-11-28T15:00:00,2025-11-28T15:00:00,false
+CON002,ACC001,John,Smith,john.smith@acme.com,Director of Operations,555-0102,Paid Social,USR001,2025-11-08T09:00:00,2025-11-08T09:00:00,2025-11-08T09:00:00,false
+CON003,ACC001,Sarah,Chen,sarah.chen@acme.com,Marketing Manager,555-0103,Paid Search,USR002,2025-11-08T09:00:00,2025-11-08T09:00:00,2025-11-08T09:00:00,false
+CON004,ACC002,Mike,Johnson,mike.johnson@globex.com,CTO,555-0104,Paid Search,USR002,2025-11-05T10:00:00,2025-11-20T16:00:00,2025-11-20T16:00:00,false
+CON005,ACC003,Emily,Davis,emily.davis@initech.com,VP Sales,555-0105,Paid Social,USR001,2025-12-04T11:00:00,2025-12-24T10:00:00,2025-12-24T10:00:00,false
+CON006,ACC003,Tom,Wilson,tom.wilson@initech.com,Product Manager,555-0106,Paid Social,USR002,2025-12-04T11:00:00,2025-12-04T11:00:00,2025-12-04T11:00:00,false
+CON007,ACC005,Rachel,Green,rachel.green@stark.com,Engineering Lead,555-0109,Paid Search,USR001,2025-11-03T10:00:00,2025-11-18T14:00:00,2025-11-18T14:00:00,false

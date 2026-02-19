@@ -1,0 +1,10 @@
+Id,FirstName,LastName,Email,Company,Title,Phone,Status,LeadSource,IsConverted,ConvertedContactId,ConvertedAccountId,ConvertedOpportunityId,ConvertedDate,OwnerId,CreatedDate,LastModifiedDate,SystemModstamp,IsDeleted
+LEAD001,Jane,Doe,jane.doe@acme.com,Acme Corp,VP Marketing,555-0101,Qualified,Paid Search,true,CON001,ACC001,OPP001,2025-11-08,USR001,2025-10-15T10:30:00,2025-11-08T09:00:00,2025-11-08T09:00:00,false
+LEAD002,John,Smith,john.smith@acme.com,Acme Corp,Director of Operations,555-0102,Qualified,Paid Social,true,CON002,ACC001,,2025-11-08,USR001,2025-10-21T14:00:00,2025-11-08T09:00:00,2025-11-08T09:00:00,false
+LEAD003,Sarah,Chen,sarah.chen@acme.com,Acme Corp,Marketing Manager,555-0103,Qualified,Paid Search,true,CON003,ACC001,,2025-11-08,USR002,2025-10-29T11:00:00,2025-11-08T09:00:00,2025-11-08T09:00:00,false
+LEAD004,Mike,Johnson,mike.johnson@globex.com,Globex Inc,CTO,555-0104,Qualified,Paid Search,true,CON004,ACC002,OPP002,2025-11-05,USR002,2025-11-01T09:00:00,2025-11-05T10:00:00,2025-11-05T10:00:00,false
+LEAD005,Emily,Davis,emily.davis@initech.com,Initech,VP Sales,555-0105,Qualified,Paid Social,true,CON005,ACC003,OPP003,2025-12-04,USR001,2025-11-15T08:00:00,2025-12-04T11:00:00,2025-12-04T11:00:00,false
+LEAD006,Tom,Wilson,tom.wilson@initech.com,Initech,Product Manager,555-0106,Working,Paid Social,true,CON006,ACC003,,2025-12-04,USR002,2025-11-22T13:00:00,2025-12-04T11:00:00,2025-12-04T11:00:00,false
+LEAD007,Lisa,Brown,lisa.brown@umbrella.com,Umbrella Co,Marketing Director,555-0107,MQL,Organic Search,false,,,,,USR001,2025-12-01T10:00:00,2025-12-12T09:00:00,2025-12-12T09:00:00,false
+LEAD008,David,Lee,david.lee@umbrella.com,Umbrella Co,Analyst,555-0108,Working,Paid Social,false,,,,,USR002,2025-12-08T15:00:00,2025-12-15T14:00:00,2025-12-15T14:00:00,false
+LEAD009,Rachel,Green,rachel.green@stark.com,Stark Industries,Engineering Lead,555-0109,Qualified,Paid Search,true,CON007,ACC005,OPP004,2025-11-03,USR001,2025-10-20T11:00:00,2025-11-03T10:00:00,2025-11-03T10:00:00,false

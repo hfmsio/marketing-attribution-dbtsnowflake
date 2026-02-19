@@ -1,0 +1,56 @@
+name: 'marketing_attribution'
+version: '1.0.0'
+
+profile: 'marketing_attribution'
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+seeds:
+  marketing_attribution:
+    salesforce:
+      +schema: raw_salesforce
+    google_ads:
+      +schema: raw_google_ads
+    ga4:
+      +schema: raw_ga4
+
+models:
+  marketing_attribution:
+    staging:
+      +materialized: view
+      salesforce:
+        +schema: staging
+      google_ads:
+        +schema: staging
+      ga4:
+        +schema: staging
+    intermediate:
+      +materialized: view
+      +schema: intermediate
+    unified:
+      +materialized: table
+      +schema: unified
+      unf_touchpoint:
+        +cluster_by: ['person_id', 'touchpoint_at']
+      unf_person:
+        +cluster_by: ['account_id', 'person_id']
+    marts:
+      +materialized: table
+      +schema: marts
+      mrt_attribution:
+        +cluster_by: ['opportunity_id', 'campaign_key']
+    features:
+      +materialized: incremental
+      +schema: features
+      +on_schema_change: fail
+      feat_person_scoring:
+        +cluster_by: ['as_of_date', 'person_id']
