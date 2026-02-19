@@ -1,0 +1,6 @@
+Id,Name,Type,Industry,NumberOfEmployees,AnnualRevenue,Website,BillingCountry,OwnerId,CreatedDate,LastModifiedDate,SystemModstamp,IsDeleted
+ACC001,Acme Corp,Customer,Technology,500,50000000.00,www.acme.com,US,USR001,2025-09-01T10:00:00,2025-11-28T15:00:00,2025-11-28T15:00:00,false
+ACC002,Globex Inc,Customer,Finance,200,20000000.00,www.globex.com,US,USR002,2025-09-15T10:00:00,2025-11-20T16:00:00,2025-11-20T16:00:00,false
+ACC003,Initech,Prospect,Technology,1000,100000000.00,www.initech.com,US,USR001,2025-10-01T10:00:00,2025-12-24T10:00:00,2025-12-24T10:00:00,false
+ACC004,Umbrella Co,Prospect,Healthcare,150,15000000.00,www.umbrella.com,UK,USR001,2025-11-01T10:00:00,2025-12-15T14:00:00,2025-12-15T14:00:00,false
+ACC005,Stark Industries,Prospect,Manufacturing,5000,500000000.00,www.stark.com,US,USR001,2025-09-20T10:00:00,2025-11-18T14:00:00,2025-11-18T14:00:00,false

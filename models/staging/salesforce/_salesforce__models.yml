@@ -1,0 +1,88 @@
+version: 2
+
+models:
+  - name: stg_salesforce__account
+    description: Staged Salesforce accounts. 1:1 with source, renamed to snake_case, soft deletes filtered.
+    columns:
+      - name: account_id
+        description: Primary key from Salesforce Account.Id
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_salesforce__contact
+    description: Staged Salesforce contacts. 1:1 with source.
+    columns:
+      - name: contact_id
+        description: Primary key from Salesforce Contact.Id
+        tests:
+          - unique
+          - not_null
+      - name: account_id
+        tests:
+          - not_null:
+              config:
+                severity: warn
+
+  - name: stg_salesforce__lead
+    description: Staged Salesforce leads. 1:1 with source.
+    columns:
+      - name: lead_id
+        description: Primary key from Salesforce Lead.Id
+        tests:
+          - unique
+          - not_null
+      - name: lead_status
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['New', 'Working', 'Nurturing', 'MQL', 'Qualified', 'Unqualified', 'Converted']
+
+  - name: stg_salesforce__opportunity
+    description: Staged Salesforce opportunities. 1:1 with source.
+    columns:
+      - name: opportunity_id
+        description: Primary key from Salesforce Opportunity.Id
+        tests:
+          - unique
+          - not_null
+      - name: account_id
+        tests:
+          - not_null
+
+  - name: stg_salesforce__campaign
+    description: Staged Salesforce campaigns. 1:1 with source.
+    columns:
+      - name: campaign_id
+        description: Primary key from Salesforce Campaign.Id
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_salesforce__campaign_member
+    description: Staged Salesforce campaign members. 1:1 with source.
+    columns:
+      - name: campaign_member_id
+        description: Primary key from Salesforce CampaignMember.Id
+        tests:
+          - unique
+          - not_null
+      - name: campaign_id
+        tests:
+          - not_null
+      - name: lead_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_salesforce__lead')
+                field: lead_id
+              config:
+                where: "lead_id is not null"
+      - name: contact_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_salesforce__contact')
+                field: contact_id
+              config:
+                where: "contact_id is not null"

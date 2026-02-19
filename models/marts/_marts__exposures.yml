@@ -1,0 +1,22 @@
+version: 2
+
+exposures:
+  - name: attribution_dashboard
+    type: dashboard
+    maturity: high
+    description: Multi-touch attribution dashboard showing campaign and channel credit per opportunity.
+    depends_on:
+      - ref('mrt_attribution')
+    owner:
+      name: Marketing Analytics
+      email: marketing-analytics@example.com
+
+  - name: lead_scoring_model
+    type: ml
+    maturity: medium
+    description: ML lead scoring model consuming point-in-time features.
+    depends_on:
+      - ref('feat_person_scoring')
+    owner:
+      name: Data Science
+      email: data-science@example.com

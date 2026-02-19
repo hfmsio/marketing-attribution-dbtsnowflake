@@ -1,0 +1,16 @@
+version: 2
+
+sources:
+  - name: raw_google_ads
+    schema: raw_google_ads
+    config:
+      freshness:
+        warn_after: {count: 36, period: hour}
+        error_after: {count: 48, period: hour}
+    tables:
+      - name: raw_google_ads__campaign_history
+        config:
+          loaded_at_field: updated_at
+      - name: raw_google_ads__campaign_stats
+        config:
+          loaded_at_field: date

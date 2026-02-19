@@ -1,0 +1,20 @@
+version: 2
+
+models:
+  - name: stg_google_ads__campaign_history
+    description: Staged Google Ads campaign history. One row per campaign version.
+    columns:
+      - name: campaign_id
+        description: Google Ads campaign ID
+        tests:
+          - not_null
+
+  - name: stg_google_ads__campaign_stats
+    description: Staged Google Ads daily campaign performance. cost_micros converted to decimal spend_amount.
+    columns:
+      - name: campaign_id
+        tests:
+          - not_null
+      - name: report_date
+        tests:
+          - not_null

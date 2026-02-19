@@ -1,0 +1,32 @@
+[sqlfluff]
+dialect = snowflake
+templater = dbt
+max_line_length = 120
+indent_unit = space
+tab_space_size = 4
+
+[sqlfluff:indentation]
+indented_joins = false
+indented_ctes = false
+indented_using_on = true
+
+[sqlfluff:rules:capitalisation.keywords]
+capitalisation_policy = lower
+
+[sqlfluff:rules:capitalisation.identifiers]
+capitalisation_policy = lower
+
+[sqlfluff:rules:capitalisation.functions]
+capitalisation_policy = lower
+
+[sqlfluff:rules:aliasing.table]
+aliasing = explicit
+
+[sqlfluff:rules:aliasing.column]
+aliasing = explicit
+
+[sqlfluff:rules:convention.terminator]
+multiline_newline = true
+
+[sqlfluff:rules:convention.select_trailing_comma]
+select_clause_trailing_comma = forbid

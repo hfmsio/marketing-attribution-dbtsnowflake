@@ -1,0 +1,21 @@
+version: 2
+
+models:
+  - name: mrt_attribution
+    description: Core attribution model. One row per touchpoint per opportunity. Linear weighting with 180-day lookback.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+            - touchpoint_key
+            - opportunity_id
+    columns:
+      - name: touchpoint_key
+        tests:
+          - not_null
+      - name: opportunity_id
+        tests:
+          - not_null
+      - name: attribution_weight
+        tests:
+          - not_null

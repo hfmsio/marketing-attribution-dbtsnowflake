@@ -1,0 +1,64 @@
+version: 2
+
+models:
+  - name: int_ad_platforms_unioned
+    description: Unioned ad platform performance metrics. Currently Google Ads only; the design supports LinkedIn and Meta via additional CTEs with the same output schema.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+            - campaign_id
+            - platform
+            - report_date
+    columns:
+      - name: campaign_id
+        tests:
+          - not_null
+      - name: report_date
+        tests:
+          - not_null
+      - name: platform
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['google_ads']
+
+  - name: int_session_stitched
+    description: Sessions derived from GA4 events. One row per user_pseudo_id + ga_session_id.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+            - user_pseudo_id
+            - ga_session_id
+    columns:
+      - name: user_pseudo_id
+        tests:
+          - not_null
+      - name: ga_session_id
+        tests:
+          - not_null
+      - name: session_start_at
+        tests:
+          - not_null
+
+  - name: int_identity_map
+    description: Maps GA4 anonymous user_pseudo_id to CRM person_id via email matching.
+    columns:
+      - name: user_pseudo_id
+        tests:
+          - unique
+          - not_null
+
+  - name: int_person_merged
+    description: Unified person entity merging converted contacts with unconverted leads. One row per person.
+    columns:
+      - name: person_id
+        tests:
+          - unique
+          - not_null
+      - name: email
+        tests:
+          - unique
+          - not_null
