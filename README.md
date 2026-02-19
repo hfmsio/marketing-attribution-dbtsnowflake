@@ -1,5 +1,7 @@
 # Marketing Attribution Data Platform
 
+[![dbt CI](https://github.com/hfmsio/marketing-attribution-dbtsnowflake/actions/workflows/ci.yml/badge.svg)](https://github.com/hfmsio/marketing-attribution-dbtsnowflake/actions/workflows/ci.yml)
+
 ## What This Project Does
 
 B2B marketing teams run campaigns across multiple channels (paid search, paid social, email, webinars, content) but struggle to answer: **which campaigns actually drive pipeline and revenue?**
