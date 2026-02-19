@@ -1,0 +1,27 @@
+# CI/CD profiles (used by GitHub Actions via DBT_PROFILES_DIR=.)
+# Local dev profile lives in ~/.dbt/profiles.yml
+
+marketing_attribution:
+  target: ci
+  outputs:
+    ci:
+      type: snowflake
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
+      user: "{{ env_var('SNOWFLAKE_USER') }}"
+      password: "{{ env_var('SNOWFLAKE_PASSWORD') }}"
+      database: dev
+      warehouse: COMPUTE_WH
+      schema: "ci_pr_{{ env_var('GITHUB_RUN_ID', 'local') }}"
+      threads: 4
+      query_tag: 'dbt_ci'
+
+    prod:
+      type: snowflake
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
+      user: "{{ env_var('SNOWFLAKE_USER') }}"
+      password: "{{ env_var('SNOWFLAKE_PASSWORD') }}"
+      database: "{{ env_var('SNOWFLAKE_DATABASE', 'DEV') }}"
+      warehouse: "{{ env_var('SNOWFLAKE_WAREHOUSE', 'COMPUTE_WH') }}"
+      schema: production
+      threads: 8
+      query_tag: 'dbt_prod'

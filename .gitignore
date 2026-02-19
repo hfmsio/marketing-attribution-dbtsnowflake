@@ -1,0 +1,30 @@
+# dbt artifacts
+target/
+dbt_packages/
+dbt_internal_packages/
+logs/
+package-lock.yml
+
+# dbt user config
+.user.yml
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Environment & secrets
+.env
+.env.*
+credentials.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo

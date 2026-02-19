@@ -1,0 +1,5 @@
+Id,AccountId,Name,StageName,Amount,CloseDate,Probability,IsClosed,IsWon,LeadSource,OwnerId,CreatedDate,LastModifiedDate,SystemModstamp,IsDeleted
+OPP001,ACC001,Acme Corp - Enterprise License,Closed Won,50000.00,2025-11-28,100.00,true,true,Paid Search,USR001,2025-11-13T09:00:00,2025-11-28T15:00:00,2025-11-28T15:00:00,false
+OPP002,ACC002,Globex Inc - Starter Plan,Closed Won,25000.00,2025-11-20,100.00,true,true,Paid Search,USR002,2025-11-05T10:00:00,2025-11-20T16:00:00,2025-11-20T16:00:00,false
+OPP003,ACC003,Initech - Platform Deal,Negotiation,75000.00,2026-01-15,75.00,false,false,Paid Social,USR001,2025-12-09T14:00:00,2025-12-24T10:00:00,2025-12-24T10:00:00,false
+OPP004,ACC005,Stark Industries - Pilot,Closed Lost,30000.00,2025-11-18,0.00,true,false,Paid Search,USR001,2025-11-03T10:00:00,2025-11-18T14:00:00,2025-11-18T14:00:00,false

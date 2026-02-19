@@ -1,0 +1,52 @@
+name: dbt Production
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '0 6 * * *'  # daily at 06:00 UTC
+
+env:
+  DBT_PROFILES_DIR: .
+  SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+  SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
+  SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+
+jobs:
+  dbt-production:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install dbt-snowflake~=1.11.0
+
+      - name: Install dbt packages
+        run: dbt deps
+
+      - name: Seed data
+        run: dbt seed --target prod
+
+      - name: Check source freshness
+        run: dbt source freshness --target prod
+        continue-on-error: true
+
+      - name: Build all models
+        run: dbt build --target prod
+
+      - name: Generate docs
+        run: dbt docs generate --target prod
+
+      - name: Upload artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dbt-artifacts
+          path: |
+            target/run_results.json
+            target/manifest.json
+            target/catalog.json
