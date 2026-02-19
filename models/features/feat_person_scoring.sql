@@ -101,7 +101,14 @@ features as (
         count(distinct case when t.touchpoint_at >= dateadd('day', -30, d.as_of_date)
                              and t.touchpoint_at < d.as_of_date
                         then t.session_id end)
-            as session_count_30d
+            as session_count_30d,
+
+        -- engagement cadence: average days between touchpoints
+        case when count(case when t.touchpoint_at < d.as_of_date then 1 end) > 1
+            then datediff('day', min(t.touchpoint_at), max(t.touchpoint_at))
+                 / nullif(count(case when t.touchpoint_at < d.as_of_date then 1 end) - 1, 0)
+            else null
+        end as avg_days_between_touchpoints
 
     from persons p
     cross join date_spine d
@@ -129,6 +136,7 @@ select
     content_download_count_all,
     has_demo_request,
     session_count_30d,
+    avg_days_between_touchpoints,
     current_timestamp()::timestamp_ntz                         as inserted_at,
     current_timestamp()::timestamp_ntz                         as updated_at
 

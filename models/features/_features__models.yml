@@ -52,6 +52,9 @@ models:
         data_type: boolean
       - name: session_count_30d
         data_type: number
+      - name: avg_days_between_touchpoints
+        data_type: number
+        description: Average days between touchpoints as of this date. Null if fewer than 2 touchpoints.
       - name: inserted_at
         data_type: timestamp_ntz
         description: Timestamp when this row was first inserted by dbt.
