@@ -1,5 +1,7 @@
 # Marketing Attribution Data Platform
 
+> A production-grade dbt + Snowflake pipeline for B2B multi-touch attribution.
+
 [![dbt CI](https://github.com/hfmsio/marketing-attribution-dbtsnowflake/actions/workflows/ci.yml/badge.svg)](https://github.com/hfmsio/marketing-attribution-dbtsnowflake/actions/workflows/ci.yml)
 
 ## What This Project Does
